@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
-import pickle
+# import pickle
 
 import pathlib # mkdir
 import urllib # to parse strings into %-coded urlsafe strings
@@ -25,12 +25,20 @@ def cleanify(string_to_clean):
 
 BLACKBOARD_USERNAME = "REPLACE_ME"
 BLACKBOARD_PASSWORD = "REPLACE_ME"
-CHROMEDRIVER_PATH = "REPLACE_ME" # e.g. "C:/Users/Jarrett/Downloads/Waifu-Creator/game/"
-BLACKBOARD_MAIN_PATH = os.getcwd() + "Blackbox/"
 
-BLACKBOARD_DOWNLOAD_PATH = BLACKBOARD_MAIN_PATH + "Downloads/"
+if sys.platform == "win32": # Windows users
+
+    CHROMEDRIVER_PATH = "REPLACE_ME" # e.g. "C:/Users/Jarrett/Downloads/Waifu-Creator/game/"    
+    BLACKBOARD_MAIN_PATH = CHROMEDRIVER_PATH + "Blackbox/"    
+    BLACKBOARD_DOWNLOAD_PATH = BLACKBOARD_MAIN_PATH + "Downloads/"
+
+else: # Mac users
+
+    CHROMEDRIVER_PATH = "REPLACE_ME" # e.g. "/Users/Jarrett/Downloads/Waifu-Creator/game/"    
+    BLACKBOARD_MAIN_PATH = CHROMEDRIVER_PATH + "Blackbox/"    
+    BLACKBOARD_DOWNLOAD_PATH = BLACKBOARD_MAIN_PATH + "Downloads/"
+
 shutil.rmtree(BLACKBOARD_DOWNLOAD_PATH, ignore_errors=True)
-
 pathlib.Path(BLACKBOARD_MAIN_PATH).mkdir(exist_ok=True)
 pathlib.Path(BLACKBOARD_DOWNLOAD_PATH).mkdir(exist_ok=True)
 

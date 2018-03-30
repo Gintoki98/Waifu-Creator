@@ -1,6 +1,4 @@
-﻿# For quicker debugging and developing, hit Shift + R just once to automatically reload your game whenever this script is updated.
-
-define e = Character("Sylvie")
+﻿define e = Character("Sylvie")
 
 init python:
     
@@ -9,6 +7,9 @@ init python:
     import time
     import platform
     import sys
+    from urllib2 import urlopen, Request
+    import json, ssl
+    ssl._create_default_https_context = ssl._create_unverified_context
 
 label start:
 
@@ -58,27 +59,27 @@ label ask_menu:
 
         e "What should we do this [time_of_day], [persistent.player_name]?"
 
-        "Update my weather.":
+        "How's the weather out there?":
 
             jump get_weather
-
-        "Let's share about our day.":
-
-            jump lets_talk
 
         "Tell me a joke!":
 
             jump get_joke            
 
-        "Let's go on a date!":
+        "Let's share about our day.":
 
-            jump lets_date
+            jump lets_talk
+
+        # "Let's go on a date!":
+
+        #     jump lets_date
 
         "Sync my NTUlearn files!":
 
             jump launch_blackbox
 
-        "I want to check out your wardrobe!":
+        "You're boring, get yourself a change of clothes!":
 
             jump change_clothes
 
@@ -92,13 +93,86 @@ label ask_menu:
 
 label get_weather:
 
-    # Clarence
+    show sylvie green surprised at center with ease
+
+    e "One second..."
+
+    show text "Offering tribute to the weather gods..."
+
+    python:
+
+        try:
+
+            key = '688abb832887b89786cc6167ec1427ac'
+
+            url = 'http://api.openweathermap.org/data/2.5/weather?q=Singapore&APPID='
+
+            weather = json.load(urlopen(url + key))['weather'][0]['description']
+
+            weather_available = True
+
+        except:
+
+            weather_available = False
+
+    hide text
+
+    if weather_available:
+
+        show sylvie green smile with ease
+
+        e "The weather now in Singapore is [weather]! It's nice isn't it?"
+
+    else:
+
+        e "Something isn't right. I'm having difficulties reading the weather at the moment."
 
     jump ask_menu
 
 label get_joke:
 
-    # Clarence
+    show sylvie at center with ease
+
+    e "I've got just the thing!"
+    
+    show text "Formulating joke..."
+
+    python:
+
+        try:
+
+            url = 'https://icanhazdadjoke.com/'
+
+            request = Request(url, headers={
+                "Accept": "text/plain",
+                "User-Agent": "Renpy"
+            })
+
+            joke = urlopen(request).read()
+
+            joke_available = True
+
+        except:
+
+            joke_available = False
+
+    hide text
+
+    if joke_available:
+
+        show sylvie green giggle with ease
+
+        e "[joke]"
+
+        e "Hahaha it's funny isn't it? Hehe!"
+
+    else:
+
+        show sylvie green surprised with ease
+
+        e "Why did the chicken cros-"
+
+        e " Uhmmm... Sorry, I kinda forgot how the story goes. Try again later?"
 
     jump ask_menu
 
@@ -248,7 +322,7 @@ label launch_blackbox:
 
     hide text
 
-    e "Blackbox launched! Check out the Chrome doing its magic! Your NTUlearn files will be synced to the Blackbox folder in [blackbox_path]."
+    e "Blackbox launched! Check out the Chrome doing its magic! Your NTUlearn files will be synced to the Blackbox folder in [blackbox_path]. Remember, try not to peep into the Downloads folder!"
 
     jump ask_menu
 
