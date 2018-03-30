@@ -1,0 +1,7 @@
+.gitattributes
+errors.txt
+log.txt
+traceback.txt
+cache/*
+saves/*
+*.p
