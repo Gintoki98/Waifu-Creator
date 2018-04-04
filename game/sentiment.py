@@ -2,13 +2,11 @@
 # pip install nltk, textblob
 # python -m textblob.download_corpora lite
 
-import pickle
 import nltk
 from textblob import TextBlob
-import time
+import sys
 
-message = str(pickle.load( open( "message.p", "rb" ) ))
-
+message = " ".join(sys.argv[1:])
 message_sentiment = TextBlob(message).sentiment.polarity
 
 if message_sentiment < -0.2:
@@ -23,4 +21,4 @@ else:
 
     message_response = "good"
 
-pickle.dump(message_response, open( "sentiment.p", "wb" ), protocol=2 )
+print(message_response)

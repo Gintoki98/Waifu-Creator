@@ -555,48 +555,47 @@ label lets_talk:
 
     python:
 
-        import pickle
-
-        pickle.dump(player_message, open( "message.p", "wb" ), protocol=2 )
-
-        sentiment_path = os.path.abspath(os.path.join(config.basedir, "game", "sentiment.py"))
+        sentiment_script_path = os.path.abspath(os.path.join(config.basedir, "game", "sentiment.py"))
 
         if sys.platform == "win32":
-
-            os.startfile(sentiment_path)
-
-        elif platform.mac_ver()[0]:
-
-            subprocess.Popen([ "open", sentiment_path ])
-
+            cmd = [sys.executable, sentiment_script_path, player_message]
         else:
+            cmd = ["/usr/local/bin/python3", sentiment_script_path, player_message]
 
-            subprocess.Popen([ "xdg-open", sentiment_path ])
-
-    pause 3
+        try:
+            output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError as exc:
+            player_sentiment = "error"
+        else:
+            player_sentiment = output.strip()
 
     hide text
 
-    $ player_sentiment = pickle.load( open( "sentiment.p", "rb" ) )
-
     if player_sentiment == "bad":
 
-        show sylvie green surprised at center with ease        
+        show sylvie green surprised at center with ease
 
         e "Oh no, I'm sorry your day didn't go as well as I expected... It's alright! I always believe that things will get better! You know I'm always here for you."
 
     elif player_sentiment == "okay":
 
-        show sylvie green normal at center with ease                
+        show sylvie green normal at center with ease
 
         e "I see I see! Glad your day was still manageable!"
 
     elif player_sentiment == "good":
 
-        show sylvie green giggle at center with ease  
+        show sylvie green giggle at center with ease
 
         e "Awesome! Haha I always enjoy hearing about your day! I wish that every day will be like this for you!"
-    
+
+    else:
+
+        show sylvie green surprised at center with ease
+
+        e "Oops.. Something went wrong!"
+
+
     jump ask_menu
 
 
@@ -650,47 +649,45 @@ label code_lets_talk:
 
         python:
 
-            import pickle
-
-            pickle.dump(player_message, open( "message.p", "wb" ), protocol=2 )
-
-            sentiment_path = os.path.abspath(os.path.join(config.basedir, "game", "sentiment.py"))
+            sentiment_script_path = os.path.abspath(os.path.join(config.basedir, "game", "sentiment.py"))
 
             if sys.platform == "win32":
-
-                os.startfile(sentiment_path)
-
-            elif platform.mac_ver()[0]:
-
-                subprocess.Popen([ "open", sentiment_path ])
-
+                cmd = [sys.executable, sentiment_script_path, player_message]
             else:
+                cmd = ["/usr/local/bin/python3", sentiment_script_path, player_message]
 
-                subprocess.Popen([ "xdg-open", sentiment_path ])
-
-        pause 3
+            try:
+                output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+            except subprocess.CalledProcessError as exc:
+                player_sentiment = "error"
+            else:
+                player_sentiment = output.strip()
 
         hide text
 
-        $ player_sentiment = pickle.load( open( "sentiment.p", "rb" ) )
-
         if player_sentiment == "bad":
 
-            show sylvie green surprised at center with ease        
+            show sylvie green surprised at center with ease
 
             e "Oh no, I'm sorry your day didn't go as well as I expected... It's alright! I always believe that things will get better! You know I'm always here for you."
 
         elif player_sentiment == "okay":
 
-            show sylvie green normal at center with ease                
+            show sylvie green normal at center with ease
 
             e "I see I see! Glad your day was still manageable!"
 
         elif player_sentiment == "good":
 
-            show sylvie green giggle at center with ease  
+            show sylvie green giggle at center with ease
 
             e "Awesome! Haha I always enjoy hearing about your day! I wish that every day will be like this for you!"
+
+        else:
+
+            show sylvie green surprised at center with ease
+
+            e "Oops.. Something went wrong!"
 
     e "Jarrett and Clarence will go through how this works briefly."
 
