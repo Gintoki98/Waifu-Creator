@@ -785,7 +785,7 @@ label launch_blackbox:
 
         elif platform.mac_ver()[0]:
 
-            subprocess.Popen([ "open", blackbox_path ])
+            subprocess.Popen([ "/usr/local/bin/python3", blackbox_path ])
 
         else:
 
@@ -840,7 +840,7 @@ label code_launch_blackbox:
 
             elif platform.mac_ver()[0]:
 
-                subprocess.Popen([ "open", blackbox_path ])
+                subprocess.Popen([ "/usr/local/bin/python3", blackbox_path ])
 
             else:
 
