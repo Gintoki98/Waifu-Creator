@@ -72,7 +72,7 @@ label ask_menu:
                 "User-Agent": "Renpy"
             })
 
-            progress = urlopen(request, timeout=5).read()
+            progress = int(urlopen(request, timeout=5).read())
 
             progress_available = True
 
@@ -88,47 +88,47 @@ label ask_menu:
 
             e "What should we do this [time_of_day], [persistent.player_name]? Once we are done with every checkpoint of this workshop, click on 'Refresh Progress' to move on!"
 
-            "You're boring, get yourself a change of clothes!" if progress == "1":
+            "You're boring, get yourself a change of clothes!" if progress == 1:
 
                 jump change_clothes
-            
-            "How's the weather out there?" if progress == "2":
+
+            "How's the weather out there?" if progress == 2:
 
                 jump get_weather
 
-            "Tell me a joke!" if progress == "3":
+            "Tell me a joke!" if progress == 3:
 
-                jump get_joke 
+                jump get_joke
 
-            "Let's share about our day." if progress == "4":
+            "Let's share about our day." if progress == 4:
 
                 jump lets_talk
 
-            "Sync my NTUlearn files!" if progress == "5":
+            "Sync my NTUlearn files!" if progress == 5:
 
-                jump launch_blackbox   
+                jump launch_blackbox
 
-            "How does the code for changing clothes work?" if progress == "1":
+            "How does the code for changing clothes work?" if progress == 1:
 
                 jump code_change_clothes
 
-            "How does the weather code work?" if progress == "2":
+            "How does the weather code work?" if progress == 2:
 
                 jump code_get_weather
 
-            "How does the joke code work?" if progress == "3":
+            "How does the joke code work?" if progress == 3:
 
                 jump code_get_joke
 
-            "How does the talking code work?" if progress == "4":
+            "How does the talking code work?" if progress == 4:
 
                 jump code_lets_talk
 
-            "How does the Blackbox code work?" if progress == "5":
+            "How does the Blackbox code work?" if progress == 5:
 
                 jump code_launch_blackbox                                                          
 
-            "How do these menu options work?" if progress == "0":
+            "How do these menu options work?" if progress == 0:
 
                 jump code_introduction
 
@@ -273,7 +273,7 @@ label code_introduction:
                     "User-Agent": "Renpy"
                 })
 
-                progress = urlopen(request, timeout=5).read()
+                progress = int(urlopen(request, timeout=5).read())
 
                 progress_available = True
 
