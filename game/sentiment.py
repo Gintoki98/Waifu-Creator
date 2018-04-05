@@ -6,7 +6,16 @@ import nltk
 from textblob import TextBlob
 import sys
 
-message = " ".join(sys.argv[1:])
+if sys.platform == "win32":
+
+    import pickle
+
+    message = str(pickle.load( open( "message.p", "rb" ) ))
+
+else:
+
+    message = " ".join(sys.argv[1:])
+
 message_sentiment = TextBlob(message).sentiment.polarity
 
 if message_sentiment < -0.2:
@@ -22,3 +31,7 @@ else:
     message_response = "good"
 
 print(message_response)
+
+if sys.platform == "win32":
+    
+    pickle.dump(message_response, open( "sentiment.p", "wb" ), protocol=2 )

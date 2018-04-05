@@ -558,16 +558,36 @@ label lets_talk:
         sentiment_script_path = os.path.abspath(os.path.join(config.basedir, "game", "sentiment.py"))
 
         if sys.platform == "win32":
-            cmd = [sys.executable, sentiment_script_path, player_message]
+
+            try:
+
+                import pickle
+
+                os.startfile(sentiment_script_path)
+
+                time.sleep(3)
+
+                player_sentiment = pickle.load( open( "sentiment.p", "rb" ) )
+
+            except:
+
+                player_sentiment = "error"
+
         else:
+
             cmd = ["/usr/local/bin/python3", sentiment_script_path, player_message]
 
-        try:
-            output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
-        except subprocess.CalledProcessError as exc:
-            player_sentiment = "error"
-        else:
-            player_sentiment = output.strip()
+            try:
+
+                output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+
+            except subprocess.CalledProcessError as exc:
+
+                player_sentiment = "error"
+
+            else:
+
+                player_sentiment = output.strip()
 
     hide text
 
@@ -652,16 +672,36 @@ label code_lets_talk:
             sentiment_script_path = os.path.abspath(os.path.join(config.basedir, "game", "sentiment.py"))
 
             if sys.platform == "win32":
-                cmd = [sys.executable, sentiment_script_path, player_message]
+
+                try:
+
+                    import pickle
+
+                    os.startfile(sentiment_script_path)
+
+                    time.sleep(3)
+
+                    player_sentiment = pickle.load( open( "sentiment.p", "rb" ) )
+
+                except:
+
+                    player_sentiment = "error"
+
             else:
+
                 cmd = ["/usr/local/bin/python3", sentiment_script_path, player_message]
 
-            try:
-                output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
-            except subprocess.CalledProcessError as exc:
-                player_sentiment = "error"
-            else:
-                player_sentiment = output.strip()
+                try:
+
+                    output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+
+                except subprocess.CalledProcessError as exc:
+
+                    player_sentiment = "error"
+
+                else:
+                    
+                    player_sentiment = output.strip()
 
         hide text
 
