@@ -30,8 +30,10 @@ else:
 
     message_response = "good"
 
-print(message_response)
-
 if sys.platform == "win32":
     
     pickle.dump(message_response, open( "sentiment.p", "wb" ), protocol=2 )
+
+else:    
+
+    print(message_response)

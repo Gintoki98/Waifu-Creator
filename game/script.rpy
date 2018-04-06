@@ -563,6 +563,8 @@ label lets_talk:
 
                 import pickle
 
+                pickle.dump(player_message, open( "message.p", "wb" ), protocol=2 )
+
                 os.startfile(sentiment_script_path)
 
                 time.sleep(3)
