@@ -44,13 +44,13 @@ Here's what we need:
 Windows:
 
 ```
-$ pip install selenium, nltk, textblob
+$ pip install selenium nltk textblob
 ```
 
 Mac:
 
 ```
-$ sudo pip3 install selenium, nltk, textblob 
+$ sudo pip3 install selenium nltk textblob 
 ```
 
 5. And finally, some ```corpora``` lite pre-trained sentiment analysis data:
