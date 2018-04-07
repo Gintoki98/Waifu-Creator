@@ -63,74 +63,120 @@ label ask_menu:
 
             time_of_day = "evening"
 
-        try:
+        progress_available = False
 
-            url = 'https://dl.dropboxusercontent.com/s/fe5njz6bl8djh8u/README.js?dl=0'
+        # try:
 
-            request = Request(url, headers={
-                "Accept": "text/plain",
-                "User-Agent": "Renpy"
-            })
+        #     url = 'https://dl.dropboxusercontent.com/s/fe5njz6bl8djh8u/README.js?dl=0'
 
-            progress = int(urlopen(request, timeout=5).read())
+        #     request = Request(url, headers={
+        #         "Accept": "text/plain",
+        #         "User-Agent": "Renpy"
+        #     })
 
-            progress_available = True
+        #     progress = int(urlopen(request, timeout=5).read())
 
-        except:
+        #     progress_available = True
 
-            progress_available = False
+        # except:
+
+        #     progress_available = False
 
     hide text
 
     if progress_available:
 
+        # menu:
+
+        #     e "What should we do this [time_of_day], [persistent.player_name]? Once we are done with every checkpoint of this workshop, click on 'Refresh Progress' to move on!"
+
+        #     "You're boring, get yourself a change of clothes!" if progress == 1:
+
+        #         jump change_clothes
+
+        #     "How's the weather out there?" if progress == 2:
+
+        #         jump get_weather
+
+        #     "Tell me a joke!" if progress == 3:
+
+        #         jump get_joke
+
+        #     "Let's share about our day." if progress == 4:
+
+        #         jump lets_talk
+
+        #     "Sync my NTUlearn files!" if progress == 5:
+
+        #         jump launch_blackbox
+
+        #     "How does the code for changing clothes work?" if progress == 1:
+
+        #         jump code_change_clothes
+
+        #     "How does the weather code work?" if progress == 2:
+
+        #         jump code_get_weather
+
+        #     "How does the joke code work?" if progress == 3:
+
+        #         jump code_get_joke
+
+        #     "How does the talking code work?" if progress == 4:
+
+        #         jump code_lets_talk
+
+        #     "How does the Blackbox code work?" if progress == 5:
+
+        #         jump code_launch_blackbox                                                          
+
+        #     "How do these menu options work?" if progress == 0:
+
+        #         jump code_introduction
+
+        #     "Refresh Progress.":
+
+        #         jump ask_menu  
+
+        #     "Reset Game & Name.":
+
+        #         jump reset_game
+
+        #     "Leave Game.":
+
+        #         jump end_game                                              
+
+        pass
+
+    else: # if workshop progress can't be fetched
+    
         menu:
 
             e "What should we do this [time_of_day], [persistent.player_name]? Once we are done with every checkpoint of this workshop, click on 'Refresh Progress' to move on!"
 
-            "You're boring, get yourself a change of clothes!" if progress == 1:
+            "You're boring, get yourself a change of clothes!":
 
                 jump change_clothes
 
-            "How's the weather out there?" if progress == 2:
+            "How's the weather out there?":
 
                 jump get_weather
 
-            "Tell me a joke!" if progress == 3:
+            "Tell me a joke!":
 
                 jump get_joke
 
-            "Let's share about our day." if progress == 4:
+            "Let's share about our day.":
 
                 jump lets_talk
 
-            "Sync my NTUlearn files!" if progress == 5:
+            "Can you sync my NTUlearn files?":
 
                 jump launch_blackbox
 
-            "How does the code for changing clothes work?" if progress == 1:
+            "Can you explain how the code works?":
 
-                jump code_change_clothes
-
-            "How does the weather code work?" if progress == 2:
-
-                jump code_get_weather
-
-            "How does the joke code work?" if progress == 3:
-
-                jump code_get_joke
-
-            "How does the talking code work?" if progress == 4:
-
-                jump code_lets_talk
-
-            "How does the Blackbox code work?" if progress == 5:
-
-                jump code_launch_blackbox                                                          
-
-            "How do these menu options work?" if progress == 0:
-
-                jump code_introduction
+                jump code_menu
 
             "Refresh Progress.":
 
@@ -144,39 +190,39 @@ label ask_menu:
 
                 jump end_game                                              
 
-    else: # if workshop progress can't be fetched
-    
-        menu:
+label code_menu:
 
-            e "Either the workshop is over, or that I can't access the internet. But it's alright. What should we do this [time_of_day], [persistent.player_name]?"
+    menu:
 
-            "You're boring, get yourself a change of clothes!":
+        e "Click on any of the following to find out how the code works!"
 
-                jump change_clothes
+        "How do these menu options work?":
 
-            "How's the weather out there?":
+            jump code_introduction
 
-                jump get_weather
+        "How does the code for changing clothes work?":
 
-            "Tell me a joke!":
+            jump code_change_clothes
 
-                jump get_joke            
+        "How does the weather code work?":
 
-            "Let's share about our day.":
+            jump code_get_weather
 
-                jump lets_talk
+        "How does the joke code work?":
 
-            "Sync my NTUlearn files!":
+            jump code_get_joke
 
-                jump launch_blackbox
+        "How does the talking code work?":
 
-            "Reset Game & Name.":
+            jump code_lets_talk
 
-                jump reset_game
+        "How does the Blackbox code work?":
 
-            "Leave game.":
+            jump code_launch_blackbox                                                          
 
-                jump end_game
+        "Return to main menu.":
+
+            jump ask_menu
 
 label code_introduction:
 
